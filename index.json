@@ -1,0 +1,964 @@
+{
+    "success": true,
+    "message": null,
+    "messages": null,
+    "data": [
+        {
+            "id": "6932",
+            "routeId": "TCR",
+            "stopId": "8113",
+            "patternName": "TCR",
+            "capacity": "0",
+            "percentOfCapacity": "0",
+            "tripStartOn": 1731446640000,
+            "gtfsTripId": "e963885d-9730-44fe-a3e8-5ba6bc281b77",
+            "gtfsBlockId": "eb118d58-73ff-45ff-9c4c-9ba845b53858",
+            "states": [
+                {
+                    "direction": "319",
+                    "speed": "0",
+                    "passengers": "0",
+                    "isTimePoint": "Y",
+                    "isTripper": "",
+                    "isBusAtStop": "Y",
+                    "latitude": 37.2304711666667,
+                    "longitude": -80.4264861666666,
+                    "realtimeLatitude": 37.2304711666667,
+                    "realtimeLongitude": -80.4264861666666,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446515000
+                }
+            ]
+        },
+        {
+            "id": "6323",
+            "routeId": "PRG",
+            "stopId": "1339",
+            "patternName": "PRG",
+            "capacity": "93",
+            "percentOfCapacity": "87",
+            "tripStartOn": 1731445920000,
+            "gtfsTripId": "4afa71ca-89f5-42e7-a9b8-374ac02fd3f4",
+            "gtfsBlockId": "2559edca-8ce7-4061-ac08-498670baeccf",
+            "states": [
+                {
+                    "direction": "333",
+                    "speed": "3",
+                    "passengers": "93",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "Y",
+                    "latitude": 37.2391813333333,
+                    "longitude": -80.4222371666667,
+                    "realtimeLatitude": 37.2391813333333,
+                    "realtimeLongitude": -80.4222371666667,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446533000
+                }
+            ]
+        },
+        {
+            "id": "6203",
+            "routeId": "CAS",
+            "stopId": "1123",
+            "patternName": "CAS to Maroon",
+            "capacity": "29",
+            "percentOfCapacity": "41",
+            "tripStartOn": 1731446100000,
+            "gtfsTripId": "7f3ef8aa-cfc0-4826-b1a7-5c1df8e7d4da",
+            "gtfsBlockId": "63c3f7dc-a234-4bec-83bb-8297a960ecb6",
+            "states": [
+                {
+                    "direction": "50",
+                    "speed": "1",
+                    "passengers": "29",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "Y",
+                    "latitude": 37.2211958333333,
+                    "longitude": -80.4222101666667,
+                    "realtimeLatitude": 37.2211958333333,
+                    "realtimeLongitude": -80.4222101666667,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446528000
+                }
+            ]
+        },
+        {
+            "id": "6404",
+            "routeId": "CAS",
+            "stopId": "1146",
+            "patternName": "CAS to Orange",
+            "capacity": "4",
+            "percentOfCapacity": "6",
+            "tripStartOn": 1731446100000,
+            "gtfsTripId": "a51110c9-a608-46e8-b622-c0f5917396c3",
+            "gtfsBlockId": "cc6b701a-fa7c-4cfb-a9f5-fc862f80f655",
+            "states": [
+                {
+                    "direction": "229",
+                    "speed": "6",
+                    "passengers": "4",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2231226666667,
+                    "longitude": -80.41959,
+                    "realtimeLatitude": 37.2231226666667,
+                    "realtimeLongitude": -80.41959,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446533000
+                }
+            ]
+        },
+        {
+            "id": "7007",
+            "routeId": "CRC",
+            "stopId": "1155",
+            "patternName": "CRC OB",
+            "capacity": "0",
+            "percentOfCapacity": "0",
+            "tripStartOn": 1731446100000,
+            "gtfsTripId": "6999582a-42a2-4cb2-ae77-737b210fb35d",
+            "gtfsBlockId": "15120668-dc12-435b-b229-c88e064a016a",
+            "states": [
+                {
+                    "direction": "74",
+                    "speed": "9",
+                    "passengers": "0",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2171461666667,
+                    "longitude": -80.4200855,
+                    "realtimeLatitude": 37.2171461666667,
+                    "realtimeLongitude": -80.4200855,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446495000
+                }
+            ]
+        },
+        {
+            "id": "6412",
+            "routeId": "SMA",
+            "stopId": "8006",
+            "patternName": "SMA",
+            "capacity": "8",
+            "percentOfCapacity": "10",
+            "tripStartOn": 1731446700000,
+            "gtfsTripId": "0794afed-eb5b-4b7a-ac36-52d8175dee5a",
+            "gtfsBlockId": "5637bf9c-e301-479f-a735-b815f078554a",
+            "states": [
+                {
+                    "direction": "52",
+                    "speed": "0",
+                    "passengers": "8",
+                    "isTimePoint": "Y",
+                    "isTripper": "",
+                    "isBusAtStop": "Y",
+                    "latitude": 37.2314736666667,
+                    "longitude": -80.4246665,
+                    "realtimeLatitude": 37.2314736666667,
+                    "realtimeLongitude": -80.4246665,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446532000
+                }
+            ]
+        },
+        {
+            "id": "6402",
+            "routeId": "HDG",
+            "stopId": "1500",
+            "patternName": "HDG",
+            "capacity": "9",
+            "percentOfCapacity": "13",
+            "tripStartOn": 1731446100000,
+            "gtfsTripId": "b180829f-5cbe-4e35-97bd-cbdfe54ea971",
+            "gtfsBlockId": "ff45e281-80a5-4d93-b7ea-5daac96e829f",
+            "states": [
+                {
+                    "direction": "49",
+                    "speed": "10",
+                    "passengers": "9",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2311953333333,
+                    "longitude": -80.411193,
+                    "realtimeLatitude": 37.2311953333333,
+                    "realtimeLongitude": -80.411193,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446536000
+                }
+            ]
+        },
+        {
+            "id": "6729",
+            "routeId": "HWA",
+            "stopId": "1201",
+            "patternName": "HWA",
+            "capacity": "24",
+            "percentOfCapacity": "22",
+            "tripStartOn": 1731446100000,
+            "gtfsTripId": "15c61725-3ee4-4f2b-901c-99e81039111b",
+            "gtfsBlockId": "fe56bec0-1bec-4b4a-a8ee-6a8946890d80",
+            "states": [
+                {
+                    "direction": "213",
+                    "speed": "18",
+                    "passengers": "24",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2284481666667,
+                    "longitude": -80.4391835,
+                    "realtimeLatitude": 37.2284481666667,
+                    "realtimeLongitude": -80.4391835,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446535000
+                }
+            ]
+        },
+        {
+            "id": "7213",
+            "routeId": "CRB",
+            "stopId": "1218",
+            "patternName": "CRB",
+            "capacity": "1",
+            "percentOfCapacity": "1",
+            "tripStartOn": 1731445500000,
+            "gtfsTripId": "0e05734e-cb9f-4d41-bed3-15c1876c649f",
+            "gtfsBlockId": "fa1e4c1f-6092-424f-ab3e-34f2696fa665",
+            "states": [
+                {
+                    "direction": "148",
+                    "speed": "1",
+                    "passengers": "1",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2295998333333,
+                    "longitude": -80.428014,
+                    "realtimeLatitude": 37.2295998333333,
+                    "realtimeLongitude": -80.428014,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446523000
+                }
+            ]
+        },
+        {
+            "id": "1917",
+            "routeId": "PHB",
+            "stopId": "8009",
+            "patternName": "PHB",
+            "capacity": "0",
+            "percentOfCapacity": "0",
+            "tripStartOn": 1731445200000,
+            "gtfsTripId": "2f53ded5-6fb2-44b5-ad6c-f2ea56e023c2",
+            "gtfsBlockId": "53f7c7b4-3644-45dc-a682-e53279a6575d",
+            "states": [
+                {
+                    "direction": "58",
+                    "speed": "3",
+                    "passengers": "0",
+                    "isTimePoint": "Y",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2318891666667,
+                    "longitude": -80.4241333333334,
+                    "realtimeLatitude": 37.2318891666667,
+                    "realtimeLongitude": -80.4241333333334,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446532000
+                }
+            ]
+        },
+        {
+            "id": "30",
+            "routeId": "BLU",
+            "stopId": "2177",
+            "patternName": "Explorer Blue",
+            "capacity": "0",
+            "percentOfCapacity": "0",
+            "tripStartOn": 1731444000000,
+            "gtfsTripId": "9b4c8e9e-24d5-47c1-ae56-cc9929d7566a",
+            "gtfsBlockId": "d2055e44-60dd-45ba-a70c-55417154f8fb",
+            "states": [
+                {
+                    "direction": "269",
+                    "speed": "7",
+                    "passengers": "0",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.1499726666667,
+                    "longitude": -80.4142606666666,
+                    "realtimeLatitude": 37.1499726666667,
+                    "realtimeLongitude": -80.4142606666666,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446532000
+                }
+            ]
+        },
+        {
+            "id": "7006",
+            "routeId": "CAS",
+            "stopId": "8114",
+            "patternName": "CAS to Maroon",
+            "capacity": "8",
+            "percentOfCapacity": "11",
+            "tripStartOn": 1731446520000,
+            "gtfsTripId": "02897138-4d7b-4b01-ae5e-f8f7f797aaa4",
+            "gtfsBlockId": "b1abc51a-7d4f-40b0-8be4-6afe8e729e8e",
+            "states": [
+                {
+                    "direction": "332",
+                    "speed": "0",
+                    "passengers": "8",
+                    "isTimePoint": "Y",
+                    "isTripper": "",
+                    "isBusAtStop": "Y",
+                    "latitude": 37.2305845,
+                    "longitude": -80.4266465,
+                    "realtimeLatitude": 37.2305845,
+                    "realtimeLongitude": -80.4266465,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446527000
+                }
+            ]
+        },
+        {
+            "id": "1922",
+            "routeId": "NMG",
+            "stopId": "1411",
+            "patternName": "NMG",
+            "capacity": "1",
+            "percentOfCapacity": "1",
+            "tripStartOn": 1731446100000,
+            "gtfsTripId": "b1297155-ed55-4393-9f08-0b36130e1a83",
+            "gtfsBlockId": "cb1210c1-3ff3-460c-8cc3-2affd0c6d15a",
+            "states": [
+                {
+                    "direction": "6",
+                    "speed": "1",
+                    "passengers": "1",
+                    "isTimePoint": "Y",
+                    "isTripper": "",
+                    "isBusAtStop": "Y",
+                    "latitude": 37.253111,
+                    "longitude": -80.4108343333333,
+                    "realtimeLatitude": 37.253111,
+                    "realtimeLongitude": -80.4108343333333,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446517000
+                }
+            ]
+        },
+        {
+            "id": "1923",
+            "routeId": "TTT",
+            "stopId": "8002",
+            "patternName": "TTT",
+            "capacity": "100",
+            "percentOfCapacity": "125",
+            "tripStartOn": 1731446100000,
+            "gtfsTripId": "df9b7a21-f2b0-4f61-b723-b4f450fcb4de",
+            "gtfsBlockId": "c7e40465-34b1-42fe-bd1f-dc53624515e3",
+            "states": [
+                {
+                    "direction": "234",
+                    "speed": "0",
+                    "passengers": "100",
+                    "isTimePoint": "Y",
+                    "isTripper": "",
+                    "isBusAtStop": "Y",
+                    "latitude": 37.2319015,
+                    "longitude": -80.4247728333333,
+                    "realtimeLatitude": 37.2319015,
+                    "realtimeLongitude": -80.4247728333333,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446510000
+                }
+            ]
+        },
+        {
+            "id": "506",
+            "routeId": "GLD",
+            "stopId": "2170",
+            "patternName": "Explorer Gold",
+            "capacity": "0",
+            "percentOfCapacity": "0",
+            "tripStartOn": 1731444000000,
+            "gtfsTripId": "e8f64951-c47e-4290-b351-3acd47a199ec",
+            "gtfsBlockId": "527fbbc0-d685-4c9f-8920-c66a15d52fa1",
+            "states": [
+                {
+                    "direction": "4",
+                    "speed": "19",
+                    "passengers": "0",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.1463993333333,
+                    "longitude": -80.4149645,
+                    "realtimeLatitude": 37.1463993333333,
+                    "realtimeLongitude": -80.4149645,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446516000
+                }
+            ]
+        },
+        {
+            "id": "6727",
+            "routeId": "PRG",
+            "stopId": "1333",
+            "patternName": "PRG",
+            "capacity": "63",
+            "percentOfCapacity": "59",
+            "tripStartOn": 1731445200000,
+            "gtfsTripId": "0f31543b-acfe-40c7-b14b-e3343cb00a63",
+            "gtfsBlockId": "845ff1db-6379-4a08-b3cf-f3059f7cbc51",
+            "states": [
+                {
+                    "direction": "147",
+                    "speed": "1",
+                    "passengers": "63",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2294176666667,
+                    "longitude": -80.4278761666666,
+                    "realtimeLatitude": 37.2294176666667,
+                    "realtimeLongitude": -80.4278761666666,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446522000
+                }
+            ]
+        },
+        {
+            "id": "6308",
+            "routeId": "CAS",
+            "stopId": "8005",
+            "patternName": "CAS to Orange",
+            "capacity": "37",
+            "percentOfCapacity": "53",
+            "tripStartOn": 1731446520000,
+            "gtfsTripId": "93e56df0-a998-4053-a09a-63501126f2a3",
+            "gtfsBlockId": "85d0e971-f618-4b11-8240-276c03bcf856",
+            "states": [
+                {
+                    "direction": "139",
+                    "speed": "0",
+                    "passengers": "37",
+                    "isTimePoint": "Y",
+                    "isTripper": "",
+                    "isBusAtStop": "Y",
+                    "latitude": 37.2313628333333,
+                    "longitude": -80.4250563333333,
+                    "realtimeLatitude": 37.2313628333333,
+                    "realtimeLongitude": -80.4250563333333,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446526000
+                }
+            ]
+        },
+        {
+            "id": "1918",
+            "routeId": "SMA",
+            "stopId": "1621",
+            "patternName": "SMA",
+            "capacity": "10",
+            "percentOfCapacity": "12",
+            "tripStartOn": 1731444900000,
+            "gtfsTripId": "fdeee414-8bb3-4cbf-a63f-649af7c33a8f",
+            "gtfsBlockId": "4d00c7af-1889-4764-815e-e9d447c0838d",
+            "states": [
+                {
+                    "direction": "316",
+                    "speed": "12",
+                    "passengers": "10",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2200996666667,
+                    "longitude": -80.4035935,
+                    "realtimeLatitude": 37.2200996666667,
+                    "realtimeLongitude": -80.4035935,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446533000
+                }
+            ]
+        },
+        {
+            "id": "6425",
+            "routeId": "PHD",
+            "stopId": "1426",
+            "patternName": "PHD_DETOUR",
+            "capacity": "83",
+            "percentOfCapacity": "78",
+            "tripStartOn": 1731446100000,
+            "gtfsTripId": "3ceed86f-3c09-4d00-aae4-ccaaab19f589",
+            "gtfsBlockId": "70df21dd-6f8c-45a6-b29f-83afe12a638a",
+            "states": [
+                {
+                    "direction": "28",
+                    "speed": "11",
+                    "passengers": "83",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2450771666667,
+                    "longitude": -80.4157568333333,
+                    "realtimeLatitude": 37.2450771666667,
+                    "realtimeLongitude": -80.4157568333333,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446524000
+                }
+            ]
+        },
+        {
+            "id": "1912",
+            "routeId": "TCR",
+            "stopId": "1310",
+            "patternName": "TCR",
+            "capacity": "100",
+            "percentOfCapacity": "125",
+            "tripStartOn": 1731445920000,
+            "gtfsTripId": "f2d6d514-64d9-420b-84cb-05733a26da08",
+            "gtfsBlockId": "f21f781a-eae4-421c-b6ca-e4475bfc3a45",
+            "states": [
+                {
+                    "direction": "252",
+                    "speed": "0",
+                    "passengers": "100",
+                    "isTimePoint": "Y",
+                    "isTripper": "",
+                    "isBusAtStop": "Y",
+                    "latitude": 37.2430185,
+                    "longitude": -80.4297466666667,
+                    "realtimeLatitude": 37.2430185,
+                    "realtimeLongitude": -80.4297466666667,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446527000
+                }
+            ]
+        },
+        {
+            "id": "6306",
+            "routeId": "HDG",
+            "stopId": "1431",
+            "patternName": "HDG",
+            "capacity": "6",
+            "percentOfCapacity": "9",
+            "tripStartOn": 1731445200000,
+            "gtfsTripId": "4dc8ef29-f400-4ba6-886f-3a6ed19125bd",
+            "gtfsBlockId": "0aac243a-4628-492d-bf49-10ea8c42e7d2",
+            "states": [
+                {
+                    "direction": "333",
+                    "speed": "5",
+                    "passengers": "6",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2351975,
+                    "longitude": -80.420537,
+                    "realtimeLatitude": 37.2351975,
+                    "realtimeLongitude": -80.420537,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446526000
+                }
+            ]
+        },
+        {
+            "id": "6411",
+            "routeId": "PHB",
+            "stopId": "1325",
+            "patternName": "PHB",
+            "capacity": "4",
+            "percentOfCapacity": "5",
+            "tripStartOn": 1731445920000,
+            "gtfsTripId": "7fba751d-e2b8-4844-892e-3b79b1fc5129",
+            "gtfsBlockId": "932395ac-3d09-4693-9dcb-32ee809f8868",
+            "states": [
+                {
+                    "direction": "64",
+                    "speed": "0",
+                    "passengers": "4",
+                    "isTimePoint": "Y",
+                    "isTripper": "",
+                    "isBusAtStop": "Y",
+                    "latitude": 37.245777,
+                    "longitude": -80.4227051666667,
+                    "realtimeLatitude": 37.245777,
+                    "realtimeLongitude": -80.4227051666667,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446518000
+                }
+            ]
+        },
+        {
+            "id": "6305",
+            "routeId": "HXP",
+            "stopId": "1124",
+            "patternName": "HXP",
+            "capacity": "0",
+            "percentOfCapacity": "0",
+            "tripStartOn": 1731445200000,
+            "gtfsTripId": "ad7289bf-03fe-4555-a46c-72cc87ab6729",
+            "gtfsBlockId": "bd1aa6bc-3f5e-44c2-9fdd-66612a90e61f",
+            "states": [
+                {
+                    "direction": "49",
+                    "speed": "1",
+                    "passengers": "0",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "Y",
+                    "latitude": 37.2231966666667,
+                    "longitude": -80.419405,
+                    "realtimeLatitude": 37.2231966666667,
+                    "realtimeLongitude": -80.419405,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446527000
+                }
+            ]
+        },
+        {
+            "id": "6324",
+            "routeId": "HWA",
+            "stopId": "1218",
+            "patternName": "HWA",
+            "capacity": "91",
+            "percentOfCapacity": "85",
+            "tripStartOn": 1731445200000,
+            "gtfsTripId": "5a9a514f-062b-447d-b3bf-726f4f3e0e3d",
+            "gtfsBlockId": "66cb0c42-3ad7-468e-ba51-44be7a1e1cad",
+            "states": [
+                {
+                    "direction": "76",
+                    "speed": "6",
+                    "passengers": "91",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2315813333333,
+                    "longitude": -80.4338641666667,
+                    "realtimeLatitude": 37.2315813333333,
+                    "realtimeLongitude": -80.4338641666667,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446531000
+                }
+            ]
+        },
+        {
+            "id": "6017",
+            "routeId": "UCB",
+            "stopId": "1421",
+            "patternName": "UCB",
+            "capacity": "0",
+            "percentOfCapacity": "0",
+            "tripStartOn": 1731445200000,
+            "gtfsTripId": "1edf2cc8-cbbd-47c1-ac12-85cce6099123",
+            "gtfsBlockId": "51814f46-104e-4ac6-83fe-4bfe386e290a",
+            "states": [
+                {
+                    "direction": "245",
+                    "speed": "13",
+                    "passengers": "0",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2341141666667,
+                    "longitude": -80.422284,
+                    "realtimeLatitude": 37.2341141666667,
+                    "realtimeLongitude": -80.422284,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446522000
+                }
+            ]
+        },
+        {
+            "id": "6014",
+            "routeId": "HWB",
+            "stopId": "1218",
+            "patternName": "HWB",
+            "capacity": "0",
+            "percentOfCapacity": "0",
+            "tripStartOn": 1731445200000,
+            "gtfsTripId": "fb46ea20-1153-4aa5-a475-a1fe50f12e23",
+            "gtfsBlockId": "71488d2d-0468-4ec4-b1cf-25707d9b1018",
+            "states": [
+                {
+                    "direction": "148",
+                    "speed": "5",
+                    "passengers": "0",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2297825,
+                    "longitude": -80.4281656666667,
+                    "realtimeLatitude": 37.2297825,
+                    "realtimeLongitude": -80.4281656666667,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446528000
+                }
+            ]
+        },
+        {
+            "id": "1920",
+            "routeId": "NMG",
+            "stopId": "1429",
+            "patternName": "NMG",
+            "capacity": "25",
+            "percentOfCapacity": "31",
+            "tripStartOn": 1731445200000,
+            "gtfsTripId": "ab886019-c052-4b60-9bbe-3cd17055ddc0",
+            "gtfsBlockId": "a65c2166-3cb7-4e56-8fc3-4ba42c1f8500",
+            "states": [
+                {
+                    "direction": "211",
+                    "speed": "0",
+                    "passengers": "25",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2465718333333,
+                    "longitude": -80.414795,
+                    "realtimeLatitude": 37.2465718333333,
+                    "realtimeLongitude": -80.414795,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446534000
+                }
+            ]
+        },
+        {
+            "id": "1924",
+            "routeId": "PHD",
+            "stopId": "8008",
+            "patternName": "PHD_DETOUR",
+            "capacity": "0",
+            "percentOfCapacity": "0",
+            "tripStartOn": 1731445200000,
+            "gtfsTripId": "c34604af-5d73-44b3-81d3-61de609937cd",
+            "gtfsBlockId": "32473c7f-ef6f-44a6-9eb8-55bc98999311",
+            "states": [
+                {
+                    "direction": "58",
+                    "speed": "5",
+                    "passengers": "0",
+                    "isTimePoint": "Y",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2316783333333,
+                    "longitude": -80.4244085,
+                    "realtimeLatitude": 37.2316783333333,
+                    "realtimeLongitude": -80.4244085,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446529000
+                }
+            ]
+        },
+        {
+            "id": "1915",
+            "routeId": "SMS",
+            "stopId": "1648",
+            "patternName": "SMS",
+            "capacity": "100",
+            "percentOfCapacity": "125",
+            "tripStartOn": 1731445800000,
+            "gtfsTripId": "74e0d644-7ced-448a-b0af-df0bd106cc30",
+            "gtfsBlockId": "fafeef0b-b6bc-450a-8d67-a12b8412a1bf",
+            "states": [
+                {
+                    "direction": "170",
+                    "speed": "9",
+                    "passengers": "100",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2108178333333,
+                    "longitude": -80.3996611666666,
+                    "realtimeLatitude": 37.2108178333333,
+                    "realtimeLongitude": -80.3996611666666,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446530000
+                }
+            ]
+        },
+        {
+            "id": "6011",
+            "routeId": "CRC",
+            "stopId": "1638",
+            "patternName": "CRC OB",
+            "capacity": "7",
+            "percentOfCapacity": "9",
+            "tripStartOn": 1731444300000,
+            "gtfsTripId": "a6d117ae-ef91-4a0d-86d8-02985010abff",
+            "gtfsBlockId": "42018915-bb4f-4bde-bb64-6b42c0e37aab",
+            "states": [
+                {
+                    "direction": "198",
+                    "speed": "11",
+                    "passengers": "7",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.1949063333333,
+                    "longitude": -80.4025858333333,
+                    "realtimeLatitude": 37.1949063333333,
+                    "realtimeLongitude": -80.4025858333333,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446530000
+                }
+            ]
+        },
+        {
+            "id": "7212",
+            "routeId": "HWB",
+            "stopId": "1201",
+            "patternName": "HWB",
+            "capacity": "0",
+            "percentOfCapacity": "0",
+            "tripStartOn": 1731446100000,
+            "gtfsTripId": "636b505b-06dd-4557-bbff-58330e7cad18",
+            "gtfsBlockId": "e9861a12-09e6-4aaa-9054-1b5514558cfe",
+            "states": [
+                {
+                    "direction": "225",
+                    "speed": "19",
+                    "passengers": "0",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2290241666667,
+                    "longitude": -80.4386653333333,
+                    "realtimeLatitude": 37.2290241666667,
+                    "realtimeLongitude": -80.4386653333333,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446522000
+                }
+            ]
+        },
+        {
+            "id": "6015",
+            "routeId": "UCB",
+            "stopId": "1316",
+            "patternName": "UCB",
+            "capacity": "44",
+            "percentOfCapacity": "55",
+            "tripStartOn": 1731446100000,
+            "gtfsTripId": "3363fb42-b109-4e70-868a-f97a837eafdf",
+            "gtfsBlockId": "7e0d1b46-f851-4845-9b22-82f67cba1695",
+            "states": [
+                {
+                    "direction": "338",
+                    "speed": "0",
+                    "passengers": "44",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2371931666667,
+                    "longitude": -80.4347413333333,
+                    "realtimeLatitude": 37.2371931666667,
+                    "realtimeLongitude": -80.4347413333333,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446534000
+                }
+            ]
+        },
+        {
+            "id": "6204",
+            "routeId": "HXP",
+            "stopId": "1146",
+            "patternName": "HXP",
+            "capacity": "17",
+            "percentOfCapacity": "24",
+            "tripStartOn": 1731446100000,
+            "gtfsTripId": "c1a5f42e-ee42-4866-9902-fa4c157c78ee",
+            "gtfsBlockId": "0c07fc4f-2cb7-48c6-857b-d271935bfc3c",
+            "states": [
+                {
+                    "direction": "230",
+                    "speed": "8",
+                    "passengers": "17",
+                    "isTimePoint": "N",
+                    "isTripper": "",
+                    "isBusAtStop": "N",
+                    "latitude": 37.2218475,
+                    "longitude": -80.421477,
+                    "realtimeLatitude": 37.2218475,
+                    "realtimeLongitude": -80.421477,
+                    "patternPointId": 0,
+                    "isProjected": false,
+                    "isGenerated": false,
+                    "version": 1731446529000
+                }
+            ]
+        }
+    ]
+}

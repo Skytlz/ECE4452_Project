@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+
+
+
+<head>
+    <title>Gjallarhorn</title>
+    <link rel="icon" href="https://e3.enseosupport.com/favicon.ico">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"> </script>
+    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
+    <script>
+        function Sort(a, b) {
+            return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+        }
+        function refreshtext() {
+            $('<p style=\"color:#ff0000;font-size:24px;\"><b>A new version is available, you are advised to reload this page.</b></p>').appendTo('#timesp');
+        }
+    </script>
+    <script>
+        $(function () {
+            $.getJSON('http://172.22.1.87:6364/heimdallprofile', function (data) {
+
+                var timestamp = "<span><b>Last Updated: </b>" + data.ts + "</span><br>";
+                $(timestamp).appendTo("#timesp");
+                const timeout = setTimeout(refreshtext, 1260000);
+                var managedDeviceFirmware = {};
+                var headendFirmware = {};
+                var gwayFirmware = {};
+                // var mosaicFirmware = [];
+                var casaFirmware = {};
+                var rfamppFirmware = {};
+                var mdcnt = 0;
+                var hecnt = 0;
+                var gwaycnt = 0;
+                var ccnt = 0;
+                var rfacnt = 0;
+                var rownum = 0;
+                $.each(data.sites, function (i, f) {
+
+                    let p = f.profile;
+
+                    if (!$.isEmptyObject(p)) {
+                        if (rownum % 2 == 0) {
+                            var rowcont = "<tr class=\"even\"><td class=\"propdata\">" + f.dn + "</td>";
+                        } else {
+                            var rowcont = "<tr class=\"odd\"><td class=\"propdata\">" + f.dn + "</td>";
+                        }
+
+                        rowcont += "<td class=\"propdata\">" + p.hasDocsis.s + "</td>";
+                        rowcont += "<td class=\"propdata\">" + p.hasWifi.s + "</td>";
+                        rowcont += "<td class=\"propdata\">" + p.hasWifi_AP.s + "</td>";
+                        rowcont += "<td class=\"propdata\">" + p.hasEthernet.s + "</td>";
+                        rowcont += "<td class=\"propdata\">" + p.hasMadesafe.s + "</td>";
+                        rowcont += "<td class=\"propdata\">" + p.hasHSIA.s + "</td>";
+                        rowcont += "<td class=\"propdata\">" + p.hasIOT.s + "</td>";
+                        rowcont += "<td class=\"propdata\">" + p.hasPorta.s + "</td>";
+                        rowcont += "<td class=\"propdata\">" + p.hasMosaic.s + "</td>";
+                        rowcont += "<td class=\"propdata\">" + p.hasBT_Audio.s + "</td>";
+
+                        //<td class=\"propdata\"><span class="fw1">fw1 : <b>#no</b></span><br><span class="fw2">fw2 : <b>#no</b></span><br></td>
+                        //stb firmware
+                        rowcont += "<td class=\"propdata\">";
+
+                        $.each(p.STB_FW_Model.n, function (j, k) {
+                            rowcont += "<span class=\"" + j + "\">" + j + ": <b>" + k + "</b> </span><br>"
+                            if (!(j in managedDeviceFirmware)) {
+                                managedDeviceFirmware[j] = k
+                                //console.log(HE_FW);
+                            } else {
+                                managedDeviceFirmware[j] = managedDeviceFirmware[j] + k;
+                            }
+                            mdcnt += k;
+                        });
+                        rowcont += "<hr>";
+                        $.each(p.Mosaic_FW_Model.n, function (j, k) {
+                            rowcont += "<span class=\"" + j + "\">" + j + ": <b>" + k + "</b> </span><br>"
+                            if (!(j in managedDeviceFirmware)) {
+                                managedDeviceFirmware[j] = k
+                                //console.log(HE_FW);
+                            } else {
+                                managedDeviceFirmware[j] = managedDeviceFirmware[j] + k;
+                            }
+                            mdcnt += k;
+                        });
+                        rowcont += "</td>";
+
+
+                        //headend firmware
+                        rowcont += "<td class=\"propdata\">";
+                        $.each(p.HE_FW_Model.n, function (j, k) {
+                            rowcont += "<span class=\"" + j + "\">" + j + ": <b>" + k + "</b> </span><br>";
+                            if ($.contains(j, 'GWAY')) {
+                                gwaycnt += k;
+                            }
+                            if (!(j in headendFirmware)) {
+                                headendFirmware[j] = k
+                                //console.log(HE_FW);
+                            } else {
+                                headendFirmware[j] = headendFirmware[j] + k;
+                            }
+                            hecnt += k;
+                        });
+                        rowcont += "</td>";
+
+                        //Gway Firmware
+                        rowcont += "<td class=\"propdata\">";
+                        $.each(p.Gway_FW_Model.n, function (j, k) {
+                            rowcont += "<span class=\"" + j + "\">" + j + ": <b>" + k + "</b> </span><br>";
+                            gwaycnt += k;
+                            if (!(j in gwayFirmware)) {
+                                gwayFirmware[j] = k
+                                //console.log(HE_FW);
+                            } else {
+                                gwayFirmware[j] = gwayFirmware[j] + k;
+                            }
+                        });
+                        rowcont += "</td>";
+
+                        //casa firmware
+                        rowcont += "<td class=\"propdata\">";
+                        $.each(p.Casa_FW_Model.n, function (j, k) {
+                            rowcont += "<span class=\"" + j + "\">" + j + ": <b>" + k + "</b> </span><br>";
+                            if (!(j in casaFirmware)) {
+                                casaFirmware[j] = k
+                                //console.log(HE_FW);
+                            } else {
+                                casaFirmware[j] = casaFirmware[j] + k;
+                            }
+                            ccnt += k;
+                        });
+                        rowcont += "</td>";
+
+                        //rfamp firmware
+                        rowcont += "<td class=\"propdata\">";
+                        $.each(p.RFAmp_FW_Model.n, function (j, k) {
+                            rowcont += "<span class=\"" + j + "\">" + j + ": <b>" + k + "</b> </span><br>";
+                            if (!(j in rfamppFirmware)) {
+                                rfamppFirmware[j] = k
+                                //console.log(HE_FW);
+                            } else {
+                                rfamppFirmware[j] = rfamppFirmware[j] + k;
+                            }
+                            rfacnt += k;
+                        });
+                        rowcont += "</td>";
+
+                        rowcont += "<td class=\"propdata\">" + p.hasGRE2.s + "</td>";
+                        rowcont += "<td class=\"propdata\">" + p.hasGRE2Floors.s + "</td>";
+                        rowcont += "<td class=\"propdata\">" + p.hasCloudSync.s + "</td>";
+                        rowcont += "<td class=\"propdata\">" + p.hasNevaya.s + "</td>";
+                        rownum++;
+                    } else {
+                        var rowcont = "<tr style=\"display:none;\" class=\"offline\"><td class=\"propdata\">" + f.dn + "</td>";
+                        rowcont += "<td class=\"propdata\" colspan=\"19\"><span style=\"font-size:18px\"><b>OFFLINE</b></span></td>";
+                    }
+
+
+                    rowcont += "</tr>";
+                    $(rowcont).appendTo("tbody#heimdalltable");
+
+                });
+
+                var rowCount = "<span><b>Property Count: </b>" + $('#sitedata tbody tr:visible').length + "</span><br>";
+                $("#norows").html(rowCount);
+
+                var offlineCount = "<span><b>Offline Count: </b> " + $('#sitedata tbody tr:not(:visible)').length + "</span> ";
+                $("#offline").html(offlineCount);
+
+                //console.log(stbFirmware.length);
+                managedDeviceFirmware = Object.keys(managedDeviceFirmware).sort(Sort).reduce(
+                    (obj, key) => {
+                        obj[key] = managedDeviceFirmware[key];
+                        return obj;
+                    },
+                    {}
+                );
+                $.each(managedDeviceFirmware, function (i, k) {
+                    $("<tr><td><input type=\"checkbox\" class=\"filter\" name=\"stb_fw\" value=\"" + i + "\" checked=\"checked\" />" + i + " <b>(" + k + ")</b>" + "</td></tr><br>").appendTo('#STBFirmwareBody');
+                });
+                $("#mdcnt").html("<span>Total: <b>" + mdcnt + "</b></span>");
+
+                //console.log(headendFirmware.length);
+                headendFirmware = Object.keys(headendFirmware).sort(Sort).reduce(
+                    (obj, key) => {
+                        obj[key] = headendFirmware[key];
+                        return obj;
+                    },
+                    {}
+                );
+                $.each(headendFirmware, function (i, k) {
+                    $("<tr><td><input type=\"checkbox\" class=\"filter\" name=\"he_fw\" value=\"" + i + "\" checked=\"checked\"/>" + i + " <b>(" + k + ")</b>" + "</td></tr><br>").appendTo('#HeadendFirmwareBody');
+                });
+                $("#hecnt").html("<span>Total: <b>" + hecnt + "</b></span>");
+
+                //console.log(gwaycnt);
+                //gwayFirmware.sort(Sort);
+                gwayFirmware = Object.keys(gwayFirmware).sort(Sort).reduce(
+                    (obj, key) => {
+                        obj[key] = gwayFirmware[key];
+                        return obj;
+                    },
+                    {}
+                );
+                $.each(gwayFirmware, function (i, k) {
+                    $("<tr><td><input type=\"checkbox\" class=\"filter\" name=\"gw_fw\" value=\"" + i + "\" checked=\"checked\"/>" + i + " <b>(" + k + ")</b>" + "</td></tr><br>").appendTo('#GwayFirmwareBody');
+                });
+                $("#gwaycnt").html("<span>Total: <b>" + gwaycnt + "</b></span>");
+
+                //console.log(casaFirmware);
+                casaFirmware = Object.keys(casaFirmware).sort(Sort).reduce(
+                    (obj, key) => {
+                        obj[key] = casaFirmware[key];
+                        return obj;
+                    },
+                    {}
+                );
+                $.each(casaFirmware, function (i, k) {
+                    $("<tr><td><input type=\"checkbox\" class=\"filter\" name=\"casa_fw\" value=\"" + i + "\" checked=\"checked\"/>" + i + " <b>(" + k + ")</b>" + "</td></tr><br>").appendTo('#CasaFirmwareBody');
+                });
+                $("#ccnt").html("<span>Total: <b>" + ccnt + "</b></span>");
+
+                //console.log(rfamppFirmware.length);
+
+                rfamppFirmware = Object.keys(rfamppFirmware).sort(Sort).reduce(
+                    (obj, key) => {
+                        obj[key] = rfamppFirmware[key];
+                        return obj;
+                    },
+                    {}
+                );
+                $.each(rfamppFirmware, function (i, k) {
+                    $("<tr><td><input type=\"checkbox\" class=\"filter\" name=\"rfa_fw\" value=\"" + i + "\" checked=\"checked\"/>" + i + " <b>(" + k + ")</b>" + "</td></tr><br>").appendTo('#RFAFirmwareBody');
+                });
+                $("#rfacnt").html("<span>Total: <b>" + rfacnt + "</b></span>");
+
+                $("#loadingframe").prop('style', "display:none;");
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            function filterByFirmware() {
+
+                var filterDocsis = $('input[name="Docsis"]:checked').val();
+                var filterWifi = $('input[name="Wifi"]:checked').val();
+                var filterWifiAP = $('input[name="WifiAP"]:checked').val();
+                var filterEthernet = $('input[name="Ethernet"]:checked').val();
+                var filterMadesafe = $('input[name="Madesafe"]:checked').val();
+                var filterHSIA = $('input[name="HSIA"]:checked').val();
+                var filterIOT = $('input[name="IOT"]:checked').val();
+                var filterPorta = $('input[name="Porta"]:checked').val();
+                var filterMosaic = $('input[name="Mosaic"]:checked').val();
+                var filterBTAudio = $('input[name="BT_Audio"]:checked').val();
+                var filterGRE2 = $('input[name="GRE2"]:checked').val();
+                var filterGRE2Floor = $('input[name="GRE2_Floors"]:checked').val();
+                var filterCloudSync = $('input[name="Cloud_Sync"]:checked').val();
+                var filterNevaya = $('input[name="Nevaya"]:checked').val();
+
+                var checkedstb = [];
+                $("input[name='stb_fw']:checked").each(function () {
+                    checkedstb.push($(this).val());
+                });
+
+                var checkedhe = [];
+                $("input[name='he_fw']:checked").each(function () {
+                    checkedhe.push($(this).val());
+                });
+
+                var checkedgway = [];
+                $("input[name ='gw_fw']:checked").each(function () {
+                    checkedgway.push($(this).val());
+                })
+
+                var checkedcasa = [];
+                $("input[name='casa_fw']:checked").each(function () {
+                    checkedcasa.push($(this).val());
+                });
+
+                var checkedrfa = [];
+                $("input[name='rfa_fw']:checked").each(function () {
+                    checkedrfa.push($(this).val());
+                });
+
+                $("#sitedata tbody tr:not(.offline)").each(function () {
+                    var stbspans = $(this).find('td').eq(11).find('span');
+                    var hespans = $(this).find('td').eq(12).find('span');
+                    var gwayspans = $(this).find('td').eq(13).find('span')
+                    var casaspans = $(this).find('td').eq(14).find('span');
+                    var rfaspans = $(this).find('td').eq(15).find('span');
+
+                    var hidestb = true;
+                    var hidehe = true;
+                    var hidegway = true;
+                    var hidemosaic = true;
+                    var hidecasa = true;
+                    var hiderfa = true;
+
+                    if (stbspans.length == 0 && checkedstb.includes('')) {
+                        hidestb = false;
+                    }
+                    stbspans.each(function () {
+                        var spanClass = $(this).attr("class");
+                        if (checkedstb.includes(spanClass)) {
+                            hidestb = false;
+                            return false;
+                        }
+                    });
+
+                    if (hespans.length == 0 && checkedhe.includes('')) {
+                        hidehe = false;
+                    }
+                    hespans.each(function () {
+                        var spanClass = $(this).attr("class");
+                        if (checkedhe.includes(spanClass)) {
+                            hidehe = false;
+                            return false;
+                        }
+                    });
+
+                    if (gwayspans.length == 0 && checkedgway.includes('')) {
+                        hidegway = false;
+                    }
+                    gwayspans.each(function () {
+                        var spanClass = $(this).attr("class");
+                        if (checkedgway.includes(spanClass)) {
+                            hidegway = false;
+                            return false;
+                        }
+                    })
+
+                    if (casaspans.length == 0 && checkedcasa.includes('')) {
+                        hidecasa = false;
+                    }
+                    casaspans.each(function () {
+                        var spanClass = $(this).attr("class");
+                        if (checkedcasa.includes(spanClass)) {
+                            hidecasa = false;
+                            return false;
+                        }
+                    });
+
+                    if (rfaspans.length == 0 && checkedrfa.includes('')) {
+                        hiderfa = false;
+                    }
+                    rfaspans.each(function () {
+                        var spanClass = $(this).attr("class");
+                        if (checkedrfa.includes(spanClass)) {
+                            hiderfa = false;
+                            return false;
+                        }
+                    });
+
+                    var docsisValue = $(this).find('td:eq(1)').text();
+                    var wifiValue = $(this).find('td:eq(2)').text();
+                    var wifiAPValue = $(this).find('td:eq(3)').text();
+                    var ethernetValue = $(this).find('td:eq(4)').text();
+                    var madesafeValue = $(this).find('td:eq(5)').text();
+                    var HSIAValue = $(this).find('td:eq(6)').text();
+                    var IOTValue = $(this).find('td:eq(7)').text();
+                    var portaValue = $(this).find('td:eq(8)').text();
+                    var mosaicValue = $(this).find('td:eq(9)').text();
+                    var btAudioValue = $(this).find('td:eq(10)').text();
+                    var gre2Value = $(this).find('td:eq(16)').text();
+                    var gre2FloorValue = $(this).find('td:eq(17)').text();
+                    var cloudSyncValue = $(this).find('td:eq(18)').text();
+                    var nevayaValue = $(this).find('td:eq(19)').text();
+
+
+                    if ((filterDocsis === 'all' || docsisValue === filterDocsis)
+                        && (filterWifi === 'all' || wifiValue === filterWifi)
+                        && (filterWifiAP === 'all' || wifiAPValue === filterWifiAP)
+                        && (filterEthernet === 'all' || ethernetValue === filterEthernet)
+                        && (filterMadesafe === 'all' || madesafeValue === filterMadesafe)
+                        && (filterHSIA === 'all' || HSIAValue === filterHSIA)
+                        && (filterIOT === 'all' || IOTValue === filterIOT)
+                        && (filterPorta === 'all' || portaValue === filterPorta)
+                        && (filterMosaic === 'all' || mosaicValue === filterMosaic)
+                        && (filterBTAudio === 'all' || btAudioValue === filterBTAudio)
+                        && (filterGRE2 === 'all' || gre2Value === filterGRE2)
+                        && (filterGRE2Floor === 'all' || gre2FloorValue === filterGRE2Floor)
+                        && (filterCloudSync === 'all' || cloudSyncValue === filterCloudSync)
+                        && (filterNevaya === 'all' || nevayaValue === filterNevaya)
+                        && (!(hidestb || hidehe || hidegway || hidecasa || hiderfa))) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+
+
+                var rowCount = "<span><b>Property Count: </b>" + $('#sitedata tbody tr:visible').length + "</span><br>";
+                $("#norows").html(rowCount);
+            }
+
+            function displayOffline() {
+                if ($('#show_off').prop('value') == 'Show') {
+                    $("#sitedata tbody tr").each(function () {
+                        if ($(this).attr("class") == 'offline') {
+                            $(this).show()
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                    $("#show_off").prop('value', 'Hide');
+                } else {
+                    $("#sitedata tbody tr").each(function () {
+                        if ($(this).attr("class") != 'offline') {
+                            $(this).show()
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                    filterByFirmware();
+                    $("#show_off").prop('value', 'Show');
+                }
+                var rowCount = "<span><b>Property Count: </b>" + $('#sitedata tbody tr:visible').length + "</span><br>";
+                $("#norows").html(rowCount);
+            }
+
+            $(document).on('change', "input.filter", function () {
+                // console.log("Changed");
+                filterByFirmware();
+            });
+
+            $('#select_stb').click(function () {
+                $("#STBFirmware tbody tr:not(:hidden) td input").prop('checked', true);
+                filterByFirmware();
+            });
+            $('#deselect_stb').click(function () {
+                $("#STBFirmware tbody tr:not(:hidden) td input").prop('checked', false);
+                filterByFirmware();
+            });
+
+            $('#select_he').click(function () {
+                $("#HeadendFirmware tbody tr:not(:hidden) td input").prop('checked', true);
+                filterByFirmware();
+            });
+            $('#deselect_he').click(function () {
+                $("#HeadendFirmware tbody tr:not(:hidden) td input").prop('checked', false);
+                filterByFirmware();
+            });
+
+            $('#select_gway').click(function () {
+                $("#GwayFirmware tbody tr:not(:hidden) td input").prop('checked', true);
+                filterByFirmware();
+            });
+            $('#deselect_gway').click(function () {
+                $("#GwayFirmware tbody tr:not(:hidden) td input").prop('checked', false);
+                filterByFirmware();
+            });
+
+            $('#select_c').click(function () {
+                $("#CasaFirmware tbody tr:not(:hidden) td input").prop('checked', true);
+                filterByFirmware();
+            });
+            $('#deselect_c').click(function () {
+                $("#CasaFirmware tbody tr:not(:hidden) td input").prop('checked', false);
+                filterByFirmware();
+            });
+
+            $('#select_rfa').click(function () {
+                $("#RFAFirmware tbody tr:not(:hidden) td input").prop('checked', true);
+                filterByFirmware();
+            });
+            $('#deselect_rfa').click(function () {
+                $("#RFAFirmware tbody tr:not(:hidden) td input").prop('checked', false);
+                filterByFirmware();
+            });
+
+            $('#show_off').click(function () {
+                displayOffline();
+            });
+
+
+        });
+
+        function searchForRow() {
+            $('#sitedata tbody tr').hide();
+            var rows = $('#sitedata tbody tr:hidden');
+            var val = $.trim($('#search').val()).split(',')
+            if (val == '') {
+                $("#sitedata tbody tr:not(.offline)").show();
+                return;
+            }
+            $.each(val, function (i) {
+                val[i] = val[i].trim().toLocaleLowerCase();
+            });
+            $.each(val, function (i) {
+                // rows.show().filter(function () {
+                //     var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                //     return !~text.indexOf(val[i]);
+                // }).hide();
+                $.each(rows, function () {
+                    var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                    if (!~text.indexOf(val[i])) {
+                        $(this).hide();
+                    } else {
+                        $(this).show()
+                    }
+                });
+                rows = $('#sitedata tbody tr:hidden');
+            });
+
+            var rowCount = "<span><b>Property Count: </b>" + $('#sitedata tbody tr:visible').length + "</span><br>";
+            $("#norows").html(rowCount);
+
+            // console.log(rows);
+
+
+        };
+
+        function searchForSTBFirmware() {
+            var firmware = $('#STBFirmware tbody tr');
+            var val = $.trim($('#stb_fw_search').val()).replace(/ +/g, ' ').toLocaleLowerCase();
+            firmware.show().filter(function () {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();;
+                return !~text.indexOf(val);
+            }).hide();
+        };
+
+        function searchForHEFirmware() {
+            var firmware = $('#HeadendFirmware tbody tr');
+            var val = $.trim($('#he_fw_search').val()).replace(/ +/g, ' ').toLocaleLowerCase();
+            firmware.show().filter(function () {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();;
+                return !~text.indexOf(val);
+            }).hide();
+        };
+
+        function searchForGWAYFirmware() {
+            var firmware = $('#GwayFirmware tbody tr');
+            var val = $.trim($('#gw_fw_search').val()).replace(/ +/g, ' ').toLocaleLowerCase();
+            firmware.show().filter(function () {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();;
+                return !~text.indexOf(val);
+            }).hide();
+        };
+
+        function searchForCasaFirmware() {
+            var firmware = $('#CasaFirmware tbody tr');
+            var val = $.trim($('#casa_fw_search').val()).replace(/ +/g, ' ').toLocaleLowerCase();
+            firmware.show().filter(function () {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();;
+                return !~text.indexOf(val);
+            }).hide();
+        };
+
+        function searchForRFAFirmware() {
+            var firmware = $('#RFAFirmware tbody tr');
+            var val = $.trim($('#rfa_fw_search').val()).replace(/ +/g, ' ').toLocaleLowerCase();
+            firmware.show().filter(function () {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();;
+                return !~text.indexOf(val);
+            }).hide();
+        };
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#property_show").on('change', function () {
+
+                if ($("#property_show").prop('checked') == false) {
+
+                    $('td:nth-child(1),th:nth-child(1)').hide();
+                } else {
+                    $('td:nth-child(1),th:nth-child(1)').show();
+                }
+
+            });
+            $("#docsis_show").on('change', function () {
+
+                if ($("#docsis_show").prop('checked') == false) {
+
+                    $('td:nth-child(2),th:nth-child(2)').hide();
+                } else {
+                    $('td:nth-child(2),th:nth-child(2)').show();
+                }
+
+            });
+            $("#wifi_show").on('change', function () {
+
+                if ($("#wifi_show").prop('checked') == false) {
+
+                    $('td:nth-child(3),th:nth-child(3)').hide();
+                } else {
+                    $('td:nth-child(3),th:nth-child(3)').show();
+                }
+
+            });
+            $("#wifap_show").on('change', function () {
+
+                if ($("#wifap_show").prop('checked') == false) {
+
+                    $('td:nth-child(4),th:nth-child(4)').hide();
+                } else {
+                    $('td:nth-child(4),th:nth-child(4)').show();
+                }
+
+            });
+            $("#ethernet_show").on('change', function () {
+
+                if ($("#ethernet_show").prop('checked') == false) {
+
+                    $('td:nth-child(5),th:nth-child(5)').hide();
+                } else {
+                    $('td:nth-child(5),th:nth-child(5)').show();
+                }
+
+            });
+            $("#madesafe_show").on('change', function () {
+
+                if ($("#madesafe_show").prop('checked') == false) {
+
+                    $('td:nth-child(6),th:nth-child(6)').hide();
+                } else {
+                    $('td:nth-child(6),th:nth-child(6)').show();
+                }
+
+            });
+            $("#hsia_show").on('change', function () {
+
+                if ($("#hsia_show").prop('checked') == false) {
+
+                    $('td:nth-child(7),th:nth-child(7)').hide();
+                } else {
+                    $('td:nth-child(7),th:nth-child(7)').show();
+                }
+
+            });
+            $("#iot_show").on('change', function () {
+
+                if ($("#iot_show").prop('checked') == false) {
+
+                    $('td:nth-child(8),th:nth-child(8)').hide();
+                } else {
+                    $('td:nth-child(8),th:nth-child(8)').show();
+                }
+
+            });
+            $("#porta_show").on('change', function () {
+
+                if ($("#porta_show").prop('checked') == false) {
+
+                    $('td:nth-child(9),th:nth-child(9)').hide();
+                } else {
+                    $('td:nth-child(9),th:nth-child(9)').show();
+                }
+
+            });
+            $("#mosaic_show").on('change', function () {
+
+                if ($("#mosaic_show").prop('checked') == false) {
+
+                    $('td:nth-child(10),th:nth-child(10)').hide();
+                } else {
+                    $('td:nth-child(10),th:nth-child(10)').show();
+                }
+
+            });
+            $("#bt_audio_show").on('change', function () {
+
+                if ($("#bt_audio_show").prop('checked') == false) {
+
+                    $('td:nth-child(11),th:nth-child(11)').hide();
+                } else {
+                    $('td:nth-child(11),th:nth-child(11)').show();
+                }
+
+            });
+            $("#mdfv_show").on('change', function () {
+
+                if ($("#mdfv_show").prop('checked') == false) {
+
+                    $('td:nth-child(12),th:nth-child(12)').hide();
+                } else {
+                    $('td:nth-child(12),th:nth-child(12)').show();
+                }
+
+            });
+            $("#hefv_show").on('change', function () {
+
+                if ($("#hefv_show").prop('checked') == false) {
+
+                    $('td:nth-child(13),th:nth-child(13)').hide();
+                } else {
+                    $('td:nth-child(13),th:nth-child(13)').show();
+                }
+
+            });
+            $("#gwfv_show").on('change', function () {
+
+                if ($("#gwfv_show").prop('checked') == false) {
+
+                    $('td:nth-child(14),th:nth-child(14)').hide();
+                } else {
+                    $('td:nth-child(14),th:nth-child(14)').show();
+                }
+
+            });
+            $("#cfv_show").on('change', function () {
+
+                if ($("#cfv_show").prop('checked') == false) {
+
+                    $('td:nth-child(15),th:nth-child(15)').hide();
+                } else {
+                    $('td:nth-child(15),th:nth-child(15)').show();
+                }
+
+            });
+            $("#rfv_show").on('change', function () {
+
+                if ($("#rfv_show").prop('checked') == false) {
+
+                    $('td:nth-child(16),th:nth-child(16)').hide();
+                } else {
+                    $('td:nth-child(16),th:nth-child(16)').show();
+                }
+
+            });
+            $("#gre2_show").on('change', function () {
+
+                if ($("#gre2_show").prop('checked') == false) {
+
+                    $('td:nth-child(17),th:nth-child(17)').hide();
+                } else {
+                    $('td:nth-child(17),th:nth-child(17)').show();
+                }
+
+            });
+            $("#gre2f_show").on('change', function () {
+                if ($("#gre2f_show").prop('checked') == false) {
+                    $('td:nth-child(18),th:nth-child(18)').hide();
+                } else {
+                    $('td:nth-child(18),th:nth-child(18)').show();
+                }
+            });
+            $("#cloudsync_show").on('change', function () {
+
+                if ($("#cloudsync_show").prop('checked') == false) {
+                    $('td:nth-child(19),th:nth-child(19)').hide();
+                } else {
+                    $('td:nth-child(19),th:nth-child(19)').show();
+                }
+
+            });
+            $("#nevaya_show").on('change', function () {
+
+                if ($("#nevaya_show").prop('checked') == false) {
+                    $('td:nth-child(20),th:nth-child(20)').hide();
+                } else {
+                    $('td:nth-child(20),th:nth-child(20)').show();
+                }
+
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            function exportToCSV(filename) {
+                var csv = [];
+
+                var headers = [];
+                headers.push("Ticket ID");
+                $("#sitedata th:not(:hidden)").each(function () {
+                    headers.push($(this).text());
+                });
+                csv.push(headers.join(","));
+
+                var rows = $("#sitedata tbody tr:not(:hidden)");
+                var col = 0;
+                rows.each(function () {
+                    var row = [];
+                    $(this).find("td:not(:hidden)").each(function () {
+                        if (col == 0) {
+                            row.push($(this).text().substring(1, $(this).text().indexOf(' ')));
+                            var prop = "\"";
+                            prop += $(this).text().trim() + "\"";
+                            //console.log(prop);
+                            row.push(prop)
+                        }
+                        else if (col == 11 || col == 12 || col == 13 || col == 14 || col == 15) {
+                            var str = "\""
+                            //row.push($(this).text().trim());
+                            $(this).find('span').each(function () {
+                                str += ($(this).text().trim() + "\n")
+                            })
+                            str += "\"";
+                            row.push(str);
+                        } else {
+                            row.push($(this).text().trim());
+                        }
+                        col++;
+                    });
+                    col = 0;
+                    csv.push(row.join(","));
+                });
+
+                var csvString = csv.join("\n");
+
+                var blob = new Blob([csvString], { type: "text/csv" });
+                var url = URL.createObjectURL(blob);
+
+                var a = document.createElement("a");
+                a.setAttribute("href", url);
+                a.setAttribute("download", filename);
+
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+            $("#generateCSV").click(function () {
+                exportToCSV("table.csv");
+            });
+        });
+    </script>
+    <style>
+        /* body {
+            overflow: hidden;
+        } */
+
+        #BodyWrapper {
+            display: block;
+        }
+
+        #sidebar {
+            position: absolute;
+            max-width: 20%;
+            height: 100%;
+            top: 4em;
+            /* bottom: 0; */
+            left: 0;
+            display: block;
+            padding: 20px;
+            /* overflow-x: hidden;
+            overflow-y: auto; */
+            background-color: #eee;
+            border-right: 1px solid #eee;
+        }
+
+        #container {
+            position: relative;
+            left: 18.333%;
+            margin-top: 5em;
+            /* margin-left: 8.3333%; */
+            max-width: 75%;
+        }
+
+        #wrapper {
+            position: relative;
+            overflow: auto;
+            height: 500px;
+            width: 100%;
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        #wrapper td.propdata {
+            box-shadow: inset 1px -1px #000;
+        }
+
+        #wrapper th {
+            box-shadow: inset 1px 1px 1px #000, 0 1px #000;
+        }
+
+        .topper {
+            width: 50%;
+            float: left;
+            /* position: relative; */
+            /* min-height: 1px;
+            padding-right: 15px;
+            padding-left: 15px; */
+        }
+
+        #searchbar {
+            text-align: right;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        #search {
+            height: 2.5em;
+            width: 20em;
+        }
+
+        /* .row {
+            margin-right: -15px;
+            margin-left: -15px;
+        } */
+
+        table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th {
+            /*border: 2px solid #000;*/
+            text-align: center;
+            padding: 8px;
+            background: #eee;
+        }
+
+        tr:hover {
+            background-color: #d6d6f0;
+        }
+
+        td.propdata {
+            /*border: 1px solid #aaa;*/
+            text-align: center;
+            padding: 8px;
+        }
+
+        .searchwrapper {
+            height: auto;
+            display: block;
+            overflow: hidden;
+        }
+
+        .filterbutton {
+            width: auto;
+            float: left;
+            padding: 2px 12px 2px 2px;
+        }
+
+        .even {
+            background-color: #fff;
+        }
+
+        .odd {
+            background-color: #eee
+        }
+
+        .offline {
+            background-color: #f68383;
+        }
+
+        #top-bar {
+            background-image: linear-gradient(to bottom, #3c3c3c 0, #222 100%);
+            background-repeat: repeat-x;
+            /* position: absolute; */
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 100%;
+            height: 4em;
+            box-sizing: border-box;
+            margin: 0 0 1em 0;
+
+        }
+
+        #header {
+            font-size: 42px;
+            position: relative;
+            color: white;
+            margin-block-start: 0;
+            margin-block-end: 0;
+        }
+
+
+
+
+        #STBFirmwareWrapper,
+        #HeadendFirmwareWrapper,
+        #GwayFirmwareWrapper,
+        #MosaicFirmwareWrapper,
+        #CasaFirmwareWrapper,
+        #RFAFirmwareWrapper,
+        #colselector {
+            overflow: auto;
+            /* overflow-x: hidden; */
+            height: 200px;
+            width: auto;
+            padding-left: 24px;
+        }
+
+        #loadingframe {
+            background-color: #000;
+            opacity: 0.5;
+        }
+
+        .loading {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 120vh;
+            z-index: 5;
+        }
+
+        #loadingwheel {
+            margin-left: 50%;
+            margin-top: 25%;
+            width: 128px;
+            height: 128;
+            transform: scale(0.6);
+            box-sizing: border-box;
+        }
+
+        @keyframes f_fadeG {
+            0% {
+                background-color: #FFF;
+            }
+
+            100% {
+                background-color: #000;
+            }
+        }
+
+        .loadcircle {
+            position: absolute;
+            background-color: #FFFFFF;
+            opacity: 1;
+            height: 23px;
+            width: 23px;
+            border-radius: 12px;
+
+            -moz-border-radius: 12px;
+            -moz-animation-name: f_fadeG;
+            -moz-animation-duration: 0.56s;
+            -moz-animation-iteration-count: infinite;
+            -moz-animation-direction: linear;
+            -webkit-border-radius: 12px;
+            -webkit-animation-name: f_fadeG;
+            -webkit-animation-duration: 0.56s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: linear;
+            -ms-border-radius: 12px;
+            -ms-animation-name: f_fadeG;
+            -ms-animation-duration: 0.56s;
+            -ms-animation-iteration-count: infinite;
+            -ms-animation-direction: linear;
+            -o-border-radius: 12px;
+            -o-animation-name: f_fadeG;
+            -o-animation-duration: 0.56s;
+            -o-animation-iteration-count: infinite;
+            -o-animation-direction: linear;
+            border-radius: 12px;
+            animation-name: f_fadeG;
+            animation-duration: 0.56s;
+            animation-iteration-count: infinite;
+            animation-direction: linear;
+        }
+
+        #loadrotate0 {
+            left: 0px;
+            bottom: 52px;
+            -moz-animation-delay: 0.21s;
+            -webkit-animation-delay: 0.21s;
+            -ms-animation-delay: 0.21s;
+            -o-animation-delay: 0.21s;
+            animation-delay: 0.21s;
+        }
+
+        #loadrotate1 {
+            left: 15px;
+            bottom: 15px;
+            -moz-animation-delay: 0.28s;
+            -webkit-animation-delay: 0.28s;
+            -ms-animation-delay: 0.28s;
+            -o-animation-delay: 0.28s;
+            animation-delay: 0.28s;
+        }
+
+        #loadrotate2 {
+            left: 52px;
+            bottom: 0px;
+            -moz-animation-delay: 0.35s;
+            -webkit-animation-delay: 0.35s;
+            -ms-animation-delay: 0.35s;
+            -o-animation-delay: 0.35s;
+            animation-delay: 0.35s;
+        }
+
+        #loadrotate3 {
+            right: 15px;
+            bottom: 15px;
+            -moz-animation-delay: 0.42s;
+            -webkit-animation-delay: 0.42s;
+            -ms-animation-delay: 0.42s;
+            -o-animation-delay: 0.42s;
+            animation-delay: 0.42s;
+        }
+
+        #loadrotate4 {
+            right: 0px;
+            bottom: 52px;
+            -moz-animation-delay: 0.49s;
+            -webkit-animation-delay: 0.49s;
+            -ms-animation-delay: 0.49s;
+            -o-animation-delay: 0.49s;
+            animation-delay: 0.49s;
+        }
+
+        #loadrotate5 {
+            left: 89px;
+            bottom: 89px;
+            -moz-animation-delay: 0.56s;
+            -webkit-animation-delay: 0.56s;
+            -ms-animation-delay: 0.56s;
+            -o-animation-delay: 0.56s;
+            animation-delay: 0.56s;
+        }
+
+        #loadrotate6 {
+            left: 52px;
+            bottom: 104px;
+            -moz-animation-delay: 0.63s;
+            -webkit-animation-delay: 0.63s;
+            -ms-animation-delay: 0.63s;
+            -o-animation-delay: 0.63s;
+            animation-delay: 0.63s;
+        }
+
+        #loadrotate7 {
+            right: 89px;
+            bottom: 89px;
+            -moz-animation-delay: 0.7s;
+            -webkit-animation-delay: 0.7s;
+            -ms-animation-delay: 0.7s;
+            -o-animation-delay: 0.7s;
+            animation-delay: 0.7s;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loadingframe" class="loading">
+        <div id="loadingwheel">
+            <div class="loadcircle" id="loadrotate0"></div>
+            <div class="loadcircle" id="loadrotate1"></div>
+            <div class="loadcircle" id="loadrotate2"></div>
+            <div class="loadcircle" id="loadrotate3"></div>
+            <div class="loadcircle" id="loadrotate4"></div>
+            <div class="loadcircle" id="loadrotate5"></div>
+            <div class="loadcircle" id="loadrotate6"></div>
+            <div class="loadcircle" id="loadrotate7"></div>
+        </div>
+    </div>
+    <div id="top-bar">
+        <img src="https://e3.enseosupport.com/enseo.png">
+    </div>
+
+    <div id="BodyWrapper">
+        <div id="sidebar">
+            <span><b>Show/Hide Columns</b></span><br>
+            <input type="checkbox" class="columns" id="property_show" checked="checked" />Property<br>
+            <input type="checkbox" class="columns" id="docsis_show" checked="checked" />Docsis<br>
+            <input type="checkbox" class="columns" id="wifi_show" checked="checked" />Wifi<br>
+            <input type="checkbox" class="columns" id="wifap_show" checked="checked" />Wifi_AP<br>
+            <input type="checkbox" class="columns" id="ethernet_show" checked="checked" />Ethernet<br>
+            <input type="checkbox" class="columns" id="madesafe_show" checked="checked" />Madesafe<br>
+            <input type="checkbox" class="columns" id="hsia_show" checked="checked" />HSIA<br>
+            <input type="checkbox" class="columns" id="iot_show" checked="checked" />IOT<br>
+            <input type="checkbox" class="columns" id="porta_show" checked="checked" />Porta<br>
+            <input type="checkbox" class="columns" id="mosaic_show" checked="checked" />Mosaic<br>
+            <input type="checkbox" class="columns" id="bt_audio_show" checked="checked" />BT_Audio<br>
+            <input type="checkbox" class="columns" id="mdfv_show" checked="checked" />Managed Device Firmware
+            Version<br>
+            <input type="checkbox" class="columns" id="hefv_show" checked="checked" />Headend Firmware Verion<br>
+            <input type="checkbox" class="columns" id="gwfv_show" checked="checked" />GWAY Firmware Version<br>
+            <input type="checkbox" class="columns" id="cfv_show" checked="checked" />Casa Firmware Version<br>
+            <input type="checkbox" class="columns" id="rfv_show" checked="checked" />RFAmp Firmware Version<br>
+            <input type="checkbox" class="columns" id="gre2_show" checked="checked" />GRE2<br>
+            <input type="checkbox" class="columns" id="gre2f_show" checked="checked" />GRE2 Floors<br>
+            <input type="checkbox" class="columns" id="cloudsync_show" checked="checked" />Cloud Sync<br>
+            <input type="checkbox" class="columns" id="nevaya_show" checked="checked" />Nevaya<br>
+        </div>
+        <div id="container">
+
+            <div class="row">
+                <div class="topper" id="timesp"></div>
+                <div class="topper" id="searchbar">
+                    <span>Search:</span>
+                    <input id="search" type="search" onsearch="searchForRow()" placeholder="search" />
+                </div>
+            </div>
+
+            <div id="wrapper">
+
+
+                <table id="sitedata">
+                    <thead>
+                        <th>Property</th>
+                        <th>Docsis</th>
+                        <th>Wifi</th>
+                        <th>Wifi_AP</th>
+                        <th>Ethernet</th>
+                        <th>Madesafe</th>
+                        <th>HSIA</th>
+                        <th>IOT</th>
+                        <th>Porta</th>
+                        <th>Mosaic</th>
+                        <th>BT_Audio</th>
+                        <th>Managed Device Firmware Version</th>
+                        <th>Headend Firmware Version</th>
+                        <th>GWAY Firmware Version</th>
+                        <th>Casa Firmware Version</th>
+                        <th>RFAmp Firmware Version</th>
+                        <th>GRE2</th>
+                        <th>GRE2 Floors</th>
+                        <th>Cloud Sync</th>
+                        <th>Nevaya</th>
+                    </thead>
+                    <tbody id="heimdalltable">
+
+                    </tbody>
+                </table>
+            </div>
+            <div id="norows"></div>
+            <div>
+                <div id="offline"></div>
+                <div><input type="button" id="show_off" name="offline" value="Show">
+                </div>
+            </div>
+
+            <div class="searchwrapper">
+                <div class="filterbutton">
+                    <span><b>Has Docsis:</b></span><br>
+                    <input type="radio" class="filter" name="Docsis" value="all" checked="checked" />All<br>
+                    <input type="radio" class="filter" name="Docsis" value="true" />True<br>
+                    <input type="radio" class="filter" name="Docsis" value="false" />False<br>
+                </div>
+                <div class="filterbutton">
+                    <span><b>Has Wifi:</b></span><br>
+                    <input type="radio" class="filter" name="Wifi" value="all" checked="checked" />All<br>
+                    <input type="radio" class="filter" name="Wifi" value="true" />True<br>
+                    <input type="radio" class="filter" name="Wifi" value="false" />False<br>
+                </div>
+                <div class="filterbutton">
+                    <span><b>Has Wifi AP:</b></span><br>
+                    <input type="radio" class="filter" name="WifiAP" value="all" checked="checked" />All<br>
+                    <input type="radio" class="filter" name="WifiAP" value="true" />True<br>
+                    <input type="radio" class="filter" name="WifiAP" value="false" />False<br>
+                </div>
+                <div class="filterbutton">
+                    <span><b>Has Ethernet:</b></span><br>
+                    <input type="radio" class="filter" name="Ethernet" value="all" checked="checked" />All<br>
+                    <input type="radio" class="filter" name="Ethernet" value="true" />True<br>
+                    <input type="radio" class="filter" name="Ethernet" value="false" />False<br>
+                </div>
+                <div class="filterbutton">
+                    <span><b>Has Madesafe:</b></span><br>
+                    <input type="radio" class="filter" name="Madesafe" value="all" checked="checked" />All<br>
+                    <input type="radio" class="filter" name="Madesafe" value="true" />True<br>
+                    <input type="radio" class="filter" name="Madesafe" value="false" />False<br>
+                </div>
+                <div class="filterbutton">
+                    <span><b>Has HSIA:</b></span><br>
+                    <input type="radio" class="filter" name="HSIA" value="all" checked="checked" />All<br>
+                    <input type="radio" class="filter" name="HSIA" value="true" />True<br>
+                    <input type="radio" class="filter" name="HSIA" value="false" />False<br>
+                </div>
+                <div class="filterbutton">
+                    <span><b>Has IOT:</b></span><br>
+                    <input type="radio" class="filter" name="IOT" value="all" checked="checked" />All<br>
+                    <input type="radio" class="filter" name="IOT" value="true" />True<br>
+                    <input type="radio" class="filter" name="IOT" value="false" />False<br>
+                </div>
+                <div class="filterbutton">
+                    <span><b>Has Porta:</b></span><br>
+                    <input type="radio" class="filter" name="Porta" value="all" checked="checked" />All<br>
+                    <input type="radio" class="filter" name="Porta" value="true" />True<br>
+                    <input type="radio" class="filter" name="Porta" value="false" />False<br>
+                </div>
+                <div class="filterbutton">
+                    <span><b>Has Mosaic:</b></span><br>
+                    <input type="radio" class="filter" name="Mosaic" value="all" checked="checked" />All<br>
+                    <input type="radio" class="filter" name="Mosaic" value="true" />True<br>
+                    <input type="radio" class="filter" name="Mosaic" value="false" />False<br>
+                </div>
+                <div class="filterbutton">
+                    <span><b>Has Bluetooth Audio:</b></span><br>
+                    <input type="radio" class="filter" name="BT_Audio" value="all" checked="checked" />All<br>
+                    <input type="radio" class="filter" name="BT_Audio" value="true" />True<br>
+                    <input type="radio" class="filter" name="BT_Audio" value="false" />False<br>
+                </div>
+                <div class="filterbutton">
+                    <span><b>Has GRE2:</b></span><br>
+                    <input type="radio" class="filter" name="GRE2" value="all" checked="checked" />All<br>
+                    <input type="radio" class="filter" name="GRE2" value="true" />True<br>
+                    <input type="radio" class="filter" name="GRE2" value="false" />False<br>
+                </div>
+                <div class="filterbutton">
+                    <span><b>Has GRE2 Floors:</b></span><br>
+                    <input type="radio" class="filter" name="GRE2_Floors" value="all" checked="checked" />All<br>
+                    <input type="radio" class="filter" name="GRE2_Floors" value="true" />True<br>
+                    <input type="radio" class="filter" name="GRE2_Floors" value="false" />False<br>
+                </div>
+                <div class="filterbutton">
+                    <span><b>Has Cloud Sync:</b></span><br>
+                    <input type="radio" class="filter" name="Cloud_Sync" value="all" checked="checked" />All<br>
+                    <input type="radio" class="filter" name="Cloud_Sync" value="true" />True<br>
+                    <input type="radio" class="filter" name="Cloud_Sync" value="false" />False<br>
+                </div>
+                <div class="filterbutton">
+                    <span><b>Has Nevaya:</b></span><br>
+                    <input type="radio" class="filter" name="Nevaya" value="all" checked="checked" />All<br>
+                    <input type="radio" class="filter" name="Nevaya" value="true" />True<br>
+                    <input type="radio" class="filter" name="Nevaya" value="false" />False<br>
+                </div>
+                <div class="csv_button">
+                    <div id="CreateCSV">
+                        <input type="button" id="generateCSV" value="Generate CSV" />
+                    </div>
+                </div>
+            </div>
+            <div class="firmwarewrapper">
+                <div class="filterbutton">
+                    <span><b>Managed Device Firmware:</b></span><br>
+
+                    <div id="STBFirmwareWrapper">
+                        <table id="STBFirmware">
+                            <tbody id="STBFirmwareBody">
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" class="filter" name="stb_fw" value="" id="blankstbfw"
+                                            checked="checked" />No
+                                        Reporting Firmware<br>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <input type="search" id="stb_fw_search" onsearch="searchForSTBFirmware()" value=""
+                        placeholder="search" />
+                    <div class="select">
+                        <input type="button" id="select_stb" value="Select all" />
+                        <input type="button" id="deselect_stb" value="Deselect all" />
+                    </div>
+                    <div id="mdcnt">
+                    </div>
+                </div>
+                <div class="filterbutton">
+                    <span><b>Headend Firmware:</b></span><br>
+                    <div id="HeadendFirmwareWrapper">
+                        <table id="HeadendFirmware">
+                            <tbody id="HeadendFirmwareBody">
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" class="filter" name="he_fw" value=""
+                                            checked="checked" />No Reporting
+                                        Firmware<br>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <input type="search" class="filter" id="he_fw_search" onsearch="searchForHEFirmware()" value=""
+                        placeholder="search" />
+                    <div class="select">
+                        <input type="button" id="select_he" value="Select all" />
+                        <input type="button" id="deselect_he" value="Deselect all" />
+                    </div>
+                    <div id="hecnt">
+                    </div>
+                </div>
+                <div class="filterbutton">
+                    <span><b>GWAY Firmware:</b></span><br>
+                    <div id="GwayFirmwareWrapper">
+                        <table id="GwayFirmware">
+                            <tbody id="GwayFirmwareBody">
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" class="filter" name="gw_fw" value=""
+                                            checked="checked" />No Reporting
+                                        Firmware<br>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <input type="search" id="gw_fw_search" onsearch="searchForGWAYFirmware()" value=""
+                        placeholder="search" />
+                    <div class="select">
+                        <input type="button" id="select_gway" value="Select all" />
+                        <input type="button" id="deselect_gway" value="Deselect all" />
+                    </div>
+                    <div id="gwaycnt">
+                    </div>
+                </div>
+                <div class="filterbutton">
+                    <span><b>Casa Firmware:</b></span><br>
+                    <div id="CasaFirmwareWrapper">
+                        <table id="CasaFirmware">
+                            <tbody id="CasaFirmwareBody">
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" class="filter" name="casa_fw" value=""
+                                            checked="checked" />No Reporting
+                                        Firmware<br>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <input type="search" id="casa_fw_search" onsearch="searchForCasaFirmware()" value=""
+                        placeholder="search" />
+                    <div class="select">
+                        <input type="button" id="select_c" value="Select all" />
+                        <input type="button" id="deselect_c" value="Deselect all" />
+                    </div>
+                    <div id="ccnt">
+                    </div>
+                </div>
+                <div class="filterbutton">
+                    <span><b>RFAmp Firmware:</b></span><br>
+                    <div id="RFAFirmwareWrapper">
+                        <table id="RFAFirmware">
+                            <tbody id="RFAFirmwareBody">
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" class="filter" name="rfa_fw" value=""
+                                            checked="checked" />No Reporting
+                                        Firmware<br>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <input type="search" id="rfa_fw_search" onsearch="searchForRFAFirmware()" value=""
+                        placeholder="search" />
+                    <div class="select">
+                        <input type="button" id="select_rfa" value="Select all" />
+                        <input type="button" id="deselect_rfa" value="Deselect all" />
+                    </div>
+                    <div id="rfacnt">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
