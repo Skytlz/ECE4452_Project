@@ -1,0 +1,55 @@
+#bt_routes-map {
+  height: 400px;
+}
+
+#stopTable tr {
+  cursor: pointer;
+}
+
+.route-alert-image {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.route-alert-container {
+  /*
+  background-color: black;
+  padding: 10px;
+  margin: 20px 0px;
+  */
+}
+
+.route-alert-container .accordion {
+  margin: 10px;
+  background-color: white;
+}
+
+.route-alert-container .accordion-heading {
+  color: white;
+}
+
+.route-alert-container .accordion-inner {
+  background-color: black;
+  color: white;
+}
+/*
+     FILE ARCHIVED ON 04:37:43 Dec 02, 2024 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 20:45:09 Dec 08, 2024.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 0.476
+  exclusion.robots: 0.034
+  exclusion.robots.policy: 0.025
+  esindex: 0.009
+  cdx.remote: 48.326
+  LoadShardBlock: 1770.922 (3)
+  PetaboxLoader3.datanode: 1786.693 (4)
+  load_resource: 190.875
+  PetaboxLoader3.resolve: 136.282
+*/
