@@ -202,48 +202,48 @@ hdg_route2 = {
 #     cursor.execute(query)
 # sqliteConnection.commit()
 
-hdg_route_late3 = {
-    "8003": "00:15:00",
-    "1334": "00:16:00",
-    "1422": "00:17:00",
-    "1440": "00:17:00",
-    "1600": "00:18:00",
-    "1500": "00:19:00",
-    "1501": "00:19:00",
-    "1502": "00:19:00",
-    "1503": "00:20:00",
-    "1504": "00:21:00",
-    "1505": "00:21:00",
-    "1506": "00:22:00",
-    "1507": "00:22:00",
-    "1508": "00:22:00",
-    "1509": "00:22:00",
-    "1510": "00:23:00"
-}
+# hdg_route_late3 = {
+#     "8003": "00:15:00",
+#     "1334": "00:16:00",
+#     "1422": "00:17:00",
+#     "1440": "00:17:00",
+#     "1600": "00:18:00",
+#     "1500": "00:19:00",
+#     "1501": "00:19:00",
+#     "1502": "00:19:00",
+#     "1503": "00:20:00",
+#     "1504": "00:21:00",
+#     "1505": "00:21:00",
+#     "1506": "00:22:00",
+#     "1507": "00:22:00",
+#     "1508": "00:22:00",
+#     "1509": "00:22:00",
+#     "1510": "00:23:00"
+# }
 
-initial_times = {stop: datetime.strptime(time, "%H:%M:%S") for stop, time in hdg_route_late3.items()}
+# initial_times = {stop: datetime.strptime(time, "%H:%M:%S") for stop, time in hdg_route_late3.items()}
 
-start_time = datetime.strptime("00:15:00", "%H:%M:%S")
-end_time = datetime.strptime("00:30:00", "%H:%M:%S")
-time_increment = timedelta(minutes=30)
+# start_time = datetime.strptime("00:15:00", "%H:%M:%S")
+# end_time = datetime.strptime("00:30:00", "%H:%M:%S")
+# time_increment = timedelta(minutes=30)
 
-extended_times1 = []
-current_time = start_time
+# extended_times1 = []
+# current_time = start_time
 
-while current_time <= end_time:
-    for stop, time in initial_times.items():
-        adjusted_time = time + (current_time - start_time)
-        if adjusted_time.time() <= end_time.time():
-            extended_times1.append((stop, adjusted_time.strftime("%H:%M:%S")))
-    current_time += time_increment
+# while current_time <= end_time:
+#     for stop, time in initial_times.items():
+#         adjusted_time = time + (current_time - start_time)
+#         if adjusted_time.time() <= end_time.time():
+#             extended_times1.append((stop, adjusted_time.strftime("%H:%M:%S")))
+#     current_time += time_increment
 
-query = str()
-for stop, time in extended_times1:
-    #print(f"{stop} {time}")
-    query = f"INSERT INTO ScheduledTimes VALUES(\"HDG\",{stop},\"{time}\")"
-    #print(query)
-    cursor.execute(query)
-sqliteConnection.commit()
+# query = str()
+# for stop, time in extended_times1:
+#     #print(f"{stop} {time}")
+#     query = f"INSERT INTO ScheduledTimes VALUES(\"HDG\",{stop},\"{time}\")"
+#     #print(query)
+#     cursor.execute(query)
+# sqliteConnection.commit()
 
 
 
@@ -303,6 +303,40 @@ sqliteConnection.commit()
 # if sqliteConnection:
 #     sqliteConnection.close()
 #     print('SQLite Connection closed')
+
+# initial_times = {stop: datetime.strptime(time, "%H:%M:%S") for stop, time in hdg_route_late3.items()}
+
+start_time = datetime.strptime("07:00:00", "%H:%M:%S")
+end_time = datetime.strptime("23:59:00", "%H:%M:%S")
+time_increment = timedelta(minutes=15)
+
+extended_times1 = []
+current_time = start_time
+
+counter = 1
+while current_time <= end_time:
+    # for stop, time in initial_times.items():
+    #     adjusted_time = time + (current_time - start_time)
+    #     if adjusted_time.time() <= end_time.time():
+    #         extended_times1.append((stop, adjusted_time.strftime("%H:%M:%S")))
+    if counter % 16 == 0:
+        current_time += time_increment
+    extended_times1.append(current_time.strftime("%H:%M:%S"))
+    counter += 1
+
+query = str()
+for idx, time in enumerate(extended_times1):
+    query = f"UPDATE ScheduledTimes SET starttime = '{time}' WHERE ROWID = {idx + 1};"
+    cursor.execute(query)
+sqliteConnection.commit()
+    
+# query = str()
+# for stop, time in extended_times1:
+#     #print(f"{stop} {time}")
+#     query = f"INSERT INTO ScheduledTimes VALUES(\"HDG\",{stop},\"{time}\")"
+#     #print(query)
+#     cursor.execute(query)
+# sqliteConnection.commit()
 
 
 

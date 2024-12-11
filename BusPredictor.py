@@ -4,18 +4,18 @@ from tensorflow.keras.layers import Dense, Embedding, Flatten, InputLayer
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.utils import to_categorical
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.preprocessing import StandardScaler, OneHotEncoder, LabelEncoder
+from sklearn.metrics import mean_squared_error, mean_absolute_error
 import numpy as np
 import pandas as pd
-
+import matplotlib.pyplot as plt
 import sqlite3
 import json
 from Queries import *
 
 
-
-
 def predict(busName):
+    # Connect to Database
     try: 
         conn = sqlite3.connect('BusData.db')
         cursor = conn.cursor()
@@ -24,82 +24,98 @@ def predict(busName):
     except sqlite3.Error as error:
         print('Error occurred - ', error)
 
-    # cursor.execute(BusIDChoice(busName))
-    # result = cursor.fetchall()
-    # #print('{}'.format(result))
-    # busses = [str(id[0]) for id in result]
-    # busIds = str()
-    # for i in range(len(busses)):
-    #     busIds += busses[i]
-    #     if i != len(busses)-1:
-    #         busIds += ", "
-    # t = True
-    # while t:
-    #     id = input("There are " + str(len(busses))+ f" busses currently on this route. ({busIds})"+ "\nPick one: ")
-    #     if id in busses: t = False
-    #     else: print("Not a valid bus id.")
-    
-    # cursor.execute(busStops(busName, id))
-    # result = cursor.fetchall()
-    # print('{}'.format(result))
-
-    # cursor.execute(BusTimes(busName))
-    # result = cursor.fetchall()
-
-    df1 = pd.read_sql_query(BusTimes(busName), conn)
-    # print('{}'.format(df1))
-    df2 = pd.read_sql_query(scheduledTimes(busName), conn)
-    # print('{}'.format(df2))
+    df_actual = pd.read_sql_query(BusTimes(busName), conn)  # Actual bus times
+    df_scheduled = pd.read_sql_query(scheduledTimes(busName), conn)  # Scheduled bus times
     conn.close()
 
-    merged_df = pd.merge(df1, df2, left_on=["BusName", "stopID"], right_on=["BusName", "stopID"])
+    # Merge actual and scheduled dataframes on BusName and stopID
+    comparison_df = pd.merge(
+        df_actual, df_scheduled, on=["BusName", "stopID"]
+    )
 
-    merged_df['currtime'] = pd.to_datetime(merged_df['currtime'], format='%H:%M:%S')
-    merged_df['ExpectedTime'] = pd.to_datetime(merged_df['ExpectedTime'], format='%H:%M:%S')
+    # Parse datetime columns
+    comparison_df['currtime'] = pd.to_datetime(comparison_df['currtime'], format='%H:%M:%S')
+    comparison_df['ExpectedTime'] = pd.to_datetime(comparison_df['ExpectedTime'], format='%H:%M:%S')
 
-    merged_df['time_difference'] = (merged_df['currtime'] - merged_df['ExpectedTime']).dt.total_seconds()
+    # Calculate time difference in seconds
+    comparison_df['time_difference'] = (
+        comparison_df['currtime'] - comparison_df['ExpectedTime']
+    ).dt.total_seconds()
 
-    def categorize_time_difference(diff):
-        if diff < 0:
-            return 0  # Early
-        elif diff == 0:
-            return 1  # On time
+
+    # Create labels: early, on time, or late
+    def assign_label(diff):
+        if abs(diff) <= 60:  # within 1 minute is "on time"
+            return 'on_time'
+        elif diff > 60:
+            return 'late'
         else:
-            return 2  # Late
+            return 'early'
 
-    merged_df['label'] = merged_df['time_difference'].apply(categorize_time_difference)
+    comparison_df['label'] = comparison_df['time_difference'].apply(assign_label)
 
-    # Feature selection
-    features = merged_df[['speed', 'direction', 'stopID']]
+   # print(comparison_df)
 
+    # Extract features and labels
+    features = comparison_df[['BusName', 'stopID', 'ExpectedTime']]
+    labels = comparison_df['label']
+
+    # Convert categorical features into numerical using encoding
+    features['BusName'] = features['BusName'].astype('category').cat.codes
+    features['stopID'] = features['stopID'].astype('category').cat.codes
+    features['ExpectedTime'] = features['ExpectedTime'].dt.hour * 3600 + \
+                                         features['ExpectedTime'].dt.minute * 60 + \
+                                         features['ExpectedTime'].dt.second
+
+    # Encode labels to integers
+    label_encoder = LabelEncoder()
+    labels_encoded = label_encoder.fit_transform(labels)
+
+    # Scale features
     scaler = StandardScaler()
     scaled_features = scaler.fit_transform(features)
 
-    labels = to_categorical(merged_df['label'], num_classes=3)
+    # Split data into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(scaled_features, labels_encoded, test_size=0.2, random_state=42)
 
-    X_train, X_test, y_train, y_test = train_test_split(scaled_features, labels, test_size=0.2, random_state=42)
-
+    # Build the model
     model = Sequential()
-    model.add(InputLayer(shape=(X_train.shape[1],)))
+    model.add(InputLayer(input_shape=(X_train.shape[1], )))
+    
     model.add(Dense(64, activation='relu'))
     model.add(Dense(32, activation='relu'))
     model.add(Dense(16, activation='relu'))
-    model.add(Dense(3, activation='softmax'))  # Use softmax for multi-class classification
+    model.add(Flatten())
+    model.add(Dense(3, activation='softmax'))
 
-    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+    # Compile the model
+    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-    model.fit(X_train, y_train, epochs=50, batch_size=16, validation_data=(X_test, y_test))
+    # Train the model
+    history = model.fit(X_train, y_train, epochs=50, batch_size=16, validation_data=(X_test, y_test))
 
+    # Evaluate the model
     loss, accuracy = model.evaluate(X_test, y_test)
     print(f"Test accuracy: {accuracy * 100:.2f}%")
 
+    # Predict on test set
     predictions = model.predict(X_test)
+    predicted_labels = label_encoder.inverse_transform(predictions.argmax(axis=1))
 
-    # Convert predictions to class labels
-    predictions = model.predict(X_test)
-    predicted_labels = np.argmax(predictions, axis=1)
-    print(predicted_labels)
+    for i in range(len(predictions)):
+        print("=============")
+        print("Real Label: ", y_test[i], " - ", np.argmax(y_test[i]))
+        print("Predicted: ", predictions[i], " - ", np.argmax(predictions[i]))
 
+    plt.plot(history.history['accuracy'], 'o-', label="Accuracy")
+
+    plt.title('training accuracy')
+    plt.ylabel('training accuracy')
+    plt.xlabel('epoch')
+    plt.legend(loc='lower right')
+    plt.savefig("plot.png")
+
+    #print(predicted_labels)
 
 
 
