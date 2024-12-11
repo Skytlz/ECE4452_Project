@@ -34,7 +34,22 @@ def uploadToDB(cursor):
             longitude = str(d[i]["states"][0]["longitude"])
             atStop = str(d[i]["states"][0]["isBusAtStop"])
             
+
+            if not Id: Id = "NULL"
+            if not routeId: routeId = "NULL"
+            if not stopId: stopId = "NULL"
+            if not capacity: capacity = "NULL"
+            if not percentOfCapacity: percentOfCapacity = "NULL"
+            if not starttime: starttime = "NULL"
+            if not currtime: currtime = "NULL"
+            if not direction: direction = "NULL"
+            if not speed: speed = "NULL"
+            if not latitude: latitude = "NULL"
+            if not longitude: longitude = "NULL"
+            if not atStop: atStop = "NULL"
+
             query = "INSERT INTO BusData VALUES (" + Id + ",\""+ routeId + "\"," + capacity + "," + percentOfCapacity + "," + starttime + "," + currtime + "," + direction + "," + speed + "," + latitude + "," + longitude + ",\"" + atStop + "\"," + stopId +")"
+            #print(query)
             cursor.execute(query)
             # result = cursor.fetchall()
             # print('{}'.format(result))
